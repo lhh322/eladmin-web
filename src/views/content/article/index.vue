@@ -1,34 +1,13 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <!--侧边部门数据-->
-      <el-col :xs="9" :sm="6" :md="5" :lg="4" :xl="4">
-        <div class="head-container">
-          <el-input
-            v-model="deptName"
-            clearable
-            size="small"
-            placeholder="输入部门名称搜索"
-            prefix-icon="el-icon-search"
-            class="filter-item"
-            @input="getDeptDatas"
-          />
-        </div>
-        <el-tree
-          :data="deptDatas"
-          :load="getDeptDatas"
-          :props="defaultProps"
-          :expand-on-click-node="false"
-          lazy
-          @node-click="handleNodeClick"
-        />
-      </el-col>
       <!--用户数据-->
       <el-col :xs="15" :sm="18" :md="19" :lg="20" :xl="20">
         <!--工具栏-->
         <div class="head-container">
           <div v-if="crud.props.searchToggle">
             <!-- 搜索 -->
+            <label>文章标题</label>
             <el-input
               v-model="query.blurry"
               clearable
@@ -38,7 +17,7 @@
               class="filter-item"
               @keyup.enter.native="crud.toQuery"
             />
-            <date-range-picker v-model="query.createTime" class="date-item" />
+            <span>文章分类</span>
             <el-select
               v-model="query.enabled"
               clearable
@@ -55,7 +34,24 @@
                 :value="item.key"
               />
             </el-select>
-            <rrOperation />
+            <span>文章标签</span>
+            <el-select
+              v-model="query.enabled"
+              clearable
+              size="small"
+              placeholder="请选择文章分类"
+              class="filter-item"
+              style="width: 90px"
+              @change="crud.toQuery"
+            >
+              <el-option
+                v-for="item in enabledTypeOptions"
+                :key="item.key"
+                :label="item.display_name"
+                :value="item.key"
+              />
+            </el-select>
+            <rrOperation search-text="查询" reset-text="重置" />
           </div>
           <crudOperation show="" :permission="permission">
             <el-button
@@ -211,7 +207,6 @@ import rrOperation from '@crud/RR.operation'
 import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
-import DateRangePicker from '@/components/DateRangePicker'
 import Treeselect from '@riophae/vue-treeselect'
 import { mapGetters } from 'vuex'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
@@ -220,8 +215,8 @@ let userRoles = []
 let userJobs = []
 const defaultForm = { id: null, username: null, nickName: null, gender: '男', email: null, enabled: 'false', roles: [], jobs: [], dept: { id: null }, phone: null }
 export default {
-  name: 'User',
-  components: { Treeselect, crudOperation, rrOperation, udOperation, pagination, DateRangePicker },
+  name: 'Article',
+  components: { Treeselect, crudOperation, rrOperation, udOperation, pagination },
   cruds() {
     return CRUD({ title: '用户', url: 'api/users', crudMethod: { ...crudUser }})
   },
