@@ -15,7 +15,7 @@
         新增
       </el-button>
       <el-button
-        v-if="crud.optShow.edit"
+        v-if="crud.optShow.edit && isArticleMenu === 'N'"
         v-permission="permission.edit"
         class="filter-item"
         size="mini"
@@ -38,10 +38,10 @@
         :disabled="crud.selections.length === 0"
         @click="toDelete(crud.selections)"
       >
-        删除
+        {{ isArticleMenu === 'N' ? '删除' : '批量删除' }}
       </el-button>
       <el-button
-        v-if="crud.optShow.download"
+        v-if="crud.optShow.download && isArticleMenu === 'N'"
         :loading="crud.downloadLoading"
         :disabled="!crud.data.length"
         class="filter-item"
@@ -132,6 +132,10 @@ export default {
     ignoreColumns: {
       type: Array,
       default: () => { return [] }
+    },
+    isArticleMenu: {
+      type: String,
+      default: 'N'
     }
   },
   data() {

@@ -24,7 +24,7 @@
               size="small"
               placeholder="请选择文章分类"
               class="filter-item"
-              style="width: 90px"
+              style="width: 200px"
               @change="crud.toQuery"
             >
               <el-option
@@ -39,9 +39,9 @@
               v-model="query.enabled"
               clearable
               size="small"
-              placeholder="请选择文章分类"
+              placeholder="请选择文章标签"
               class="filter-item"
-              style="width: 90px"
+              style="width: 200px"
               @change="crud.toQuery"
             >
               <el-option
@@ -53,19 +53,7 @@
             </el-select>
             <rrOperation search-text="查询" reset-text="重置" />
           </div>
-          <crudOperation show="" :permission="permission">
-            <el-button
-              slot="right"
-              v-permission="['admin','user:add']"
-              :disabled="crud.selections.length === 0"
-              class="filter-item"
-              size="mini"
-              type="primary"
-              icon="el-icon-refresh-left"
-              @click="resetPwd(crud.selections)"
-            >重置密码
-            </el-button>
-          </crudOperation>
+          <crudOperation show="" :permission="permission" is-article-menu="Y" />
         </div>
         <!--表单渲染-->
         <el-dialog append-to-body :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="555px">
