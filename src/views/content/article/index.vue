@@ -140,16 +140,16 @@
         <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
           <el-table-column :selectable="checkboxT" type="selection" width="55" />
           <el-table-column :show-overflow-tooltip="true" prop="username" label="封面" />
-          <el-table-column :show-overflow-tooltip="true" prop="nickName" label="标题" />
-          <el-table-column prop="gender" label="作者" />
-          <el-table-column :show-overflow-tooltip="true" prop="phone" width="100" label="分类" />
-          <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="标签" />
-          <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="推荐" />
+          <el-table-column :show-overflow-tooltip="true" prop="title" label="标题" />
+          <el-table-column prop="author" label="作者" />
+          <el-table-column :show-overflow-tooltip="true" prop="category" width="100" label="分类" />
+          <el-table-column :show-overflow-tooltip="true" width="135" prop="label" label="标签" />
+          <el-table-column :show-overflow-tooltip="true" width="135" prop="recommend" label="推荐" />
 
-          <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="置顶" />
-          <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="阅读量" />
+          <el-table-column :show-overflow-tooltip="true" width="135" prop="sticky" label="置顶" />
+          <el-table-column :show-overflow-tooltip="true" width="135" prop="reading" label="阅读量" />
 
-          <el-table-column :show-overflow-tooltip="true" prop="dept" label="推荐">
+          <el-table-column :show-overflow-tooltip="true" prop="recommend" label="推荐">
             <template slot-scope="scope">
               <div>{{ scope.row.dept.name }}</div>
             </template>
@@ -211,7 +211,7 @@ export default {
   name: 'Article',
   components: { Treeselect, crudOperation, rrOperation, udOperation, pagination },
   cruds() {
-    return CRUD({ title: '用户', url: 'api/users', crudMethod: { ...crudUser }})
+    return CRUD({ title: '用户', url: '/api/v1/content/article', crudMethod: { ...crudUser }})
   },
   mixins: [presenter(), header(), form(defaultForm), crud()],
   // 数据字典
