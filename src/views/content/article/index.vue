@@ -58,7 +58,7 @@
         <!--表单渲染-->
         <el-dialog append-to-body :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="555px">
           <el-form ref="form" :inline="true" :model="form" :rules="rules" size="small" label-width="66px">
-            <el-form-item label="用户名" prop="username">
+            <el-form-item label="封面" prop="username">
               <el-input v-model="form.username" @keydown.native="keydown($event)" />
             </el-form-item>
             <el-form-item label="电话" prop="phone">
@@ -139,12 +139,17 @@
         <!--表格渲染-->
         <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
           <el-table-column :selectable="checkboxT" type="selection" width="55" />
-          <el-table-column :show-overflow-tooltip="true" prop="username" label="用户名" />
-          <el-table-column :show-overflow-tooltip="true" prop="nickName" label="昵称" />
-          <el-table-column prop="gender" label="性别" />
-          <el-table-column :show-overflow-tooltip="true" prop="phone" width="100" label="电话" />
-          <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="邮箱" />
-          <el-table-column :show-overflow-tooltip="true" prop="dept" label="部门">
+          <el-table-column :show-overflow-tooltip="true" prop="username" label="封面" />
+          <el-table-column :show-overflow-tooltip="true" prop="nickName" label="标题" />
+          <el-table-column prop="gender" label="作者" />
+          <el-table-column :show-overflow-tooltip="true" prop="phone" width="100" label="分类" />
+          <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="标签" />
+          <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="推荐" />
+
+          <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="置顶" />
+          <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="阅读量" />
+
+          <el-table-column :show-overflow-tooltip="true" prop="dept" label="推荐">
             <template slot-scope="scope">
               <div>{{ scope.row.dept.name }}</div>
             </template>
@@ -160,7 +165,7 @@
               />
             </template>
           </el-table-column>
-          <el-table-column :show-overflow-tooltip="true" prop="createTime" width="135" label="创建日期" />
+          <el-table-column :show-overflow-tooltip="true" prop="createTime" width="135" label="创建时间" />
           <el-table-column
             v-if="checkPer(['admin','user:edit','user:del'])"
             label="操作"
