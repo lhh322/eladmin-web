@@ -119,12 +119,12 @@ function CRUD(options) {
       crud.notify(crud.msg.del, CRUD.NOTIFICATION_TYPE.SUCCESS)
     },
     // 搜索
-    toQuery() {
+    toQuery(isArticle) {
       crud.page.page = 1
-      crud.refresh()
+      crud.refresh(isArticle)
     },
     // 刷新
-    refresh() {
+    refresh(isArticle) {
       if (!callVmHook(crud, CRUD.HOOK.beforeRefresh)) {
         return
       }
@@ -137,8 +137,12 @@ function CRUD(options) {
             table.store.states.treeData = {}
             table.store.states.lazyTreeNodeMap = {}
           }
+          console.log('data', data)
+          console.log('data.content', data.content)
+          console.log('isArticle', isArticle)
           crud.page.total = data.totalElements
-          crud.data = data.content
+          crud.data = isArticle === 'Y' ? data.articleList : data.content
+          console.log('crud.data', crud.data)
           crud.resetDataStatus()
           // time 毫秒后显示表格
           setTimeout(() => {

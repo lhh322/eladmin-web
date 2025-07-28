@@ -51,18 +51,18 @@
                 :value="item.key"
               />
             </el-select>
-            <rrOperation search-text="查询" reset-text="重置" />
+            <rrOperation search-text="查询" reset-text="重置" is-article="Y" />
           </div>
           <crudOperation show="" :permission="permission" is-article-menu="Y" />
         </div>
         <!--表单渲染-->
         <el-dialog append-to-body :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="555px">
           <el-form ref="form" :inline="true" :model="form" :rules="rules" size="small" label-width="66px">
-            <el-form-item label="封面" prop="username">
-              <el-input v-model="form.username" @keydown.native="keydown($event)" />
+            <el-form-item label="封面" prop="author">
+              <el-input v-model="form.author" @keydown.native="keydown($event)" />
             </el-form-item>
-            <el-form-item label="电话" prop="phone">
-              <el-input v-model.number="form.phone" />
+            <el-form-item label="电话" prop="category">
+              <el-input v-model.number="form.category" />
             </el-form-item>
             <el-form-item label="昵称" prop="nickName">
               <el-input v-model="form.nickName" @keydown.native="keydown($event)" />
